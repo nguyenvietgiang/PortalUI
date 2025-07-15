@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Company Portal</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#0066cc", secondary: "#4da6ff" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <link rel="stylesheet" href="../css/index.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-10">
+      <div
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center">
+          <img
+            src="https://cdn.haitrieu.com/wp-content/uploads/2023/06/Logo-Traphaco.png"
+            alt="Logo"
+            class="h-7"
+          />
+        </div>
+
+        <div class="flex items-center space-x-6">
+          <div class="relative user-menu">
+            <div class="flex items-center space-x-3 cursor-pointer">
+              <div
+                class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center"
+              >
+                <img
+                  src="https://images.icon-icons.com/1378/PNG/512/avatardefault_92824.png"
+                  class="object-cover w-full h-full"
+                />
+              </div>
+              <div class="flex items-center">
+                <span class="font-medium text-gray-700">Lê Thành Việt</span>
+                <div class="w-5 h-5 flex items-center justify-center ml-1">
+                  <i class="ri-arrow-down-s-line"></i>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="user-dropdown bg-white shadow-lg rounded mt-2 py-2 border border-gray-100"
+            >
+              <div class="px-4 py-2 border-b border-gray-100">
+                <p class="text-sm font-medium text-gray-900">Lê Thành Việt</p>
+                <p class="text-xs text-gray-500">TP. CNNT</p>
+              </div>
+              <div class="border-t border-gray-100 my-1"></div>
+              <a
+                href="#"
+                class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-50"
+              >
+                <div class="w-5 h-5 flex items-center justify-center mr-3">
+                  <i class="ri-logout-box-line"></i>
+                </div>
+                Đăng xuất
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 pt-28 pb-16">
+      <div class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-800">
+          Trung tâm quản lý hệ thống Traphaco
+        </h2>
+        <p class="text-gray-600 mt-1">
+          Thứ sáu, 27/7/2025 | Xin chào, Lê Thành Việt
+        </p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-2">
+            <div class="relative mr-2">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <div class="w-5 h-5 flex items-center justify-center text-gray-400">
+                  <i class="ri-search-line"></i>
+                </div>
+              </div>
+              <input type="text" class="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-button pl-10 pr-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="Tìm kiếm..." />
+            </div>
+            <button id="toggleViewBtn" class="ml-2 px-3 py-2 bg-gray-100 border border-gray-200 rounded-button text-sm text-gray-700 hover:bg-primary hover:text-white transition flex items-center">
+              <i class="ri-layout-grid-line mr-1"></i>
+              <span>Chuyển dạng xem</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Ứng dụng khối văn phòng -->
+        <div class="mb-8">
+          <h4 class="text-base font-semibold text-gray-700 mb-3">Ứng dụng khối văn phòng</h4>
+          <div id="office-apps" class="app-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- HRM Hệ thống -->
+            <div class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30">
+              <div class="flex items-center mb-4">
+                <div class="w-14 h-14 rounded-lg bg-secondary/10 flex items-center justify-center mr-4">
+                  <div class="w-7 h-7 flex items-center justify-center text-secondary">
+                    <i class="ri-team-line ri-lg"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Hệ thống HRM</h4>
+                  <p class="text-sm text-gray-500">Quản lý nhân sự (Chấm công, nghỉ phép, lương thưởng, ...)</p>
+                </div>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-gray-500">Tất cả phòng ban</span>
+                <button class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button">Truy cập</button>
+              </div>
+            </div>
+            <!-- Laboratory Management Hệ thống -->
+            <div class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30">
+              <div class="flex items-center mb-4">
+                <div class="w-14 h-14 rounded-lg bg-purple-100 flex items-center justify-center mr-4">
+                  <div class="w-7 h-7 flex items-center justify-center text-purple-600">
+                    <i class="ri-flask-line ri-lg"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Hệ thống Labo</h4>
+                  <p class="text-sm text-gray-500">Hệ thống quản lý dành cho Labo NC</p>
+                </div>
+              </div>
+              <p class="text-sm text-gray-600 mb-4">Quản lý thiết bị, sản phẩm, kho và nguyên liệu thuộc Labo NC.</p>
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-gray-500">Labo NC</span>
+                <button class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button">Truy cập</button>
+              </div>
+            </div>
+            <!-- Quality Management Hệ thống -->
+            <div class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30">
+              <div class="flex items-center mb-4">
+                <div class="w-14 h-14 rounded-lg bg-teal-100 flex items-center justify-center mr-4">
+                  <div class="w-7 h-7 flex items-center justify-center text-teal-600">
+                    <i class="ri-shield-check-line ri-lg"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Lalalab</h4>
+                  <p class="text-sm text-gray-500">Quản lý chất lượng</p>
+                </div>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-gray-500">Phòng quản lý chất lượng</span>
+                <button class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button">Truy cập</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ứng dụng khối kinh doanh -->
+        <div>
+          <h4 class="text-base font-semibold text-gray-700 mb-3">Ứng dụng khối kinh doanh</h4>
+          <div id="business-apps" class="app-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- CRM Hệ thống -->
+            <div class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30">
+              <div class="flex items-center mb-4">
+                <div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                  <div class="w-7 h-7 flex items-center justify-center text-primary">
+                    <i class="ri-customer-service-2-line ri-lg"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">CRM</h4>
+                  <p class="text-sm text-gray-500">Hệ thống quản lý quan hệ khách hàng</p>
+                </div>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-gray-500">Phòng Kinh doanh</span>
+                <button class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button">Truy cập</button>
+              </div>
+            </div>
+            <!-- ERP Hệ thống -->
+            <div class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30">
+              <div class="flex items-center mb-4">
+                <div class="w-14 h-14 rounded-lg bg-green-100 flex items-center justify-center mr-4">
+                  <div class="w-7 h-7 flex items-center justify-center text-green-600">
+                    <i class="ri-building-line ri-lg"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Hệ thống ERP</h4>
+                  <p class="text-sm text-gray-500">Lập kế hoạch nguồn lực doanh nghiệp</p>
+                </div>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-gray-500">Tất cả phòng ban</span>
+                <button class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button">Truy cập</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200">
+      <div class="container mx-auto px-6 py-8 flex flex-col items-center justify-center">
+        <img src="https://cdn.haitrieu.com/wp-content/uploads/2023/06/Logo-Traphaco.png" alt="Logo" class="h-10 mb-4" />
+        <p class="text-sm text-gray-600 text-center">Mọi vấn đề về kỹ thuật vui lòng liên hệ phòng CNTT - công ty cổ phần Traphaco.</p>
+      </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script src="../js/index.js"></script>
+  </body>
+</html>

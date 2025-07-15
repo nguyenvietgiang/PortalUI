@@ -1,0 +1,57 @@
+:where([class^="ri-"])::before {
+  content: "\f3c2";
+}
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f9fafb;
+}
+/* Card transition for both views */
+/* Card transition for both views */
+.card {
+  transition: all 0.3s ease;
+  border-width: 2px !important;
+  border-color: #d1d5db !important; /* Tailwind gray-300 */
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: #0066cc !important; /* primary color on hover */
+}
+
+/* List view styles for app-list */
+.app-list.list-view {
+  display: flex !important;
+  flex-direction: column;
+  gap: 0 !important;
+}
+.app-list.list-view .card {
+  border-radius: 0;
+  border-left: 4px solid #e5e7eb;
+  margin-bottom: 0;
+  margin-top: 0;
+  box-shadow: none;
+  transition: background 0.2s;
+}
+.app-list.list-view .card:not(:last-child) {
+  border-bottom: 1px solid #e5e7eb;
+}
+.app-list.list-view .card:hover {
+  background: #f3f4f6;
+  transform: none;
+  box-shadow: 0 2px 8px -2px rgba(0,0,0,0.04);
+}
+input:focus {
+  outline: none;
+}
+.user-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 220px;
+  z-index: 50;
+}
+.user-menu:hover .user-dropdown {
+  display: block;
+}
