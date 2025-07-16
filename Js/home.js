@@ -1,3 +1,16 @@
+// Hiển thị ngày tháng hiện tại theo định dạng 'Thứ [thứ], [ngày]/[tháng]/[năm]'
+document.addEventListener('DOMContentLoaded', function () {
+  var dateSpan = document.getElementById('currentDate');
+  if (dateSpan) {
+    var days = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
+    var now = new Date();
+    var dayOfWeek = days[now.getDay()];
+    var day = now.getDate();
+    var month = now.getMonth() + 1;
+    var year = now.getFullYear();
+    dateSpan.textContent = `${dayOfWeek}, ${day}/${month}/${year}`;
+  }
+});
 // User menu dropdown toggle logic (only show/hide on click, never on hover)
 document.addEventListener('DOMContentLoaded', function () {
   var toggleBtn = document.getElementById('userMenuToggle');
