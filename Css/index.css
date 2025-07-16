@@ -1,57 +1,21 @@
+/* style.css */
+
 :where([class^="ri-"])::before {
   content: "\f3c2";
 }
 body {
-  font-family: "Inter", sans-serif;
-  background-color: #f9fafb;
+  font-family: "Roboto", sans-serif;
+  background-image: url("https://readdy.ai/api/search-image?query=Pharmaceutical%20laboratory%20background%20with%20subtle%20medical%20symbols%2C%20very%20light%20and%20minimal%20pattern%2C%20extremely%20faded%2C%20almost%20white%20background%20with%20barely%20visible%20medical%20icons%20like%20pills%2C%20molecules%2C%20and%20lab%20equipment%2C%20perfect%20for%20a%20login%20page%20background%2C%20professional%20and%20clean%20design%2C%20high-key%20lighting&width=1920&height=1080&seq=12345&orientation=landscape");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
-/* Card transition for both views */
-/* Card transition for both views */
-.card {
-  transition: all 0.3s ease;
-  border-width: 2px !important;
-  border-color: #d1d5db !important; /* Tailwind gray-300 */
+.login-container {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.95);
 }
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  border-color: #0066cc !important; /* primary color on hover */
-}
-
-/* List view styles for app-list */
-.app-list.list-view {
-  display: flex !important;
-  flex-direction: column;
-  gap: 0 !important;
-}
-.app-list.list-view .card {
-  border-radius: 0;
-  border-left: 4px solid #e5e7eb;
-  margin-bottom: 0;
-  margin-top: 0;
-  box-shadow: none;
-  transition: background 0.2s;
-}
-.app-list.list-view .card:not(:last-child) {
-  border-bottom: 1px solid #e5e7eb;
-}
-.app-list.list-view .card:hover {
-  background: #f3f4f6;
-  transform: none;
-  box-shadow: 0 2px 8px -2px rgba(0,0,0,0.04);
-}
-input:focus {
-  outline: none;
-}
-.user-dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 100%;
-  width: 220px;
-  z-index: 50;
-}
-.user-menu:hover .user-dropdown {
-  display: block;
+.microsoft-btn:hover {
+  background-color: #f5f5f5;
 }
