@@ -61,10 +61,10 @@
           <div class="relative user-menu">
             <div class="flex items-center space-x-3">
               <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
-                <img src="https://images.icon-icons.com/1378/PNG/512/avatardefault_92824.png" class="object-cover w-full h-full" />
+                <img id="userAvatar" src="https://images.icon-icons.com/1378/PNG/512/avatardefault_92824.png" class="object-cover w-full h-full" />
               </div>
               <div class="flex items-center">
-                <span class="font-medium text-gray-700">Lê Thành Việt</span>
+                <span id="userName" class="font-medium text-gray-700">...</span>
                 <button id="userMenuToggle" type="button" class="w-5 h-5 flex items-center justify-center ml-1 focus:outline-none">
                   <i class="ri-arrow-down-s-line"></i>
                 </button>
@@ -72,12 +72,12 @@
             </div>
             <div id="userDropdown" class="user-dropdown bg-white shadow-lg rounded mt-2 py-2 border border-gray-100 hidden absolute right-0 min-w-[180px] z-50">
               <div class="border-t border-gray-100 my-1"></div>
-<a href="../index.html" class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-50">
+              <button id="logoutBtn" class="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-50 bg-transparent border-0 text-left cursor-pointer">
                 <div class="w-5 h-5 flex items-center justify-center mr-3">
                   <i class="ri-logout-box-line"></i>
                 </div>
                 Đăng xuất
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@
               Trung tâm quản lý ứng dụng Traphaco Portal
             </h2>
             <p class="text-gray-600 mt-1">
-              <span id="currentDate"></span> | Xin chào, Lê Thành Việt
+              <span id="currentDate"></span> | Xin chào, <span id="userNameInline">...</span>
             </p>
           </div>
           <form class="flex items-center w-full md:w-auto gap-2" onsubmit="return false;">
@@ -235,6 +235,15 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
     <script src="../Js/home.js"></script>
+    <script>
+      // Kiểm tra token, nếu không có thì quay về trang login
+      (function() {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+          window.location.href = '../index.html';
+        }
+      })();
+    </script>
   </body>
 </html>
 
