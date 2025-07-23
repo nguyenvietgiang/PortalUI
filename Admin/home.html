@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traphaco-Portal</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#2563eb',secondary:'#3b82f6'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 bg-white shadow-lg border-r border-gray-200 transition-all duration-300">
+            <div class="p-6 border-b border-gray-200">
+                <img
+            src="https://cdn.haitrieu.com/wp-content/uploads/2023/06/Logo-Traphaco.png"
+            alt="Logo"
+            class="h-7"
+          />
+            </div>
+            
+            <nav class="mt-6">
+                <ul class="space-y-1 px-3">
+                    <li>
+                        <a href="#" id="categoryTab" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors bg-primary text-white">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3">
+                                <i class="ri-folder-line text-sm"></i>
+                            </div>
+                            Danh sách khối
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="appTab" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3">
+                                <i class="ri-apps-line text-sm"></i>
+                            </div>
+                            Danh sách ứng dụng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="logoutTab" class="flex items-center px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3">
+                                <i class="ri-logout-box-line text-sm"></i> 
+                            </div>
+                            Đăng xuất
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header -->
+            <header class="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <button id="sidebarToggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+                            <div class="w-5 h-5 flex items-center justify-center">
+                                <i class="ri-menu-line text-lg"></i>
+                            </div>
+                        </button>
+                        <div class="relative">
+                            <input type="text" placeholder="Tìm kiếm" class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-80">
+                            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 flex items-center justify-center">
+                                <i class="ri-search-line text-gray-400 text-sm"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button id="profileDropdown" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+                                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                                    <i class="ri-user-line text-white text-sm"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-sm font-medium text-gray-900">Admin User</div>
+                                    <div class="text-xs text-gray-500">System Administrator</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="flex-1 overflow-auto p-6">
+                <!-- Category Management Section -->
+                <div id="categorySection" class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">Khối ứng dụng</h1>
+                        </div>
+                        <button id="addCategoryBtn" class="bg-primary text-white px-4 py-2 rounded-button hover:bg-blue-700 transition-colors flex items-center space-x-2 !rounded-button whitespace-nowrap">
+                            <div class="w-4 h-4 flex items-center justify-center">
+                                <i class="ri-add-line"></i>
+                            </div>
+                            <span>Thêm mới</span>
+                        </button>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                        <div class="p-6">
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="border-b border-gray-200">
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-900">Tên khối</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-900">Mô tả</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-900">Số lượng</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-900">Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                            <td class="py-4 px-4">
+                                                <div class="flex items-center space-x-3">
+                                                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                                        <i class="ri-briefcase-line text-blue-600"></i>
+                                                    </div>
+                                                    <span class="font-medium text-gray-900">Khối văn phòng</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-4 px-4 text-gray-600">Sử dụng chung cho khối văn phòng</td>
+                                            <td class="py-4 px-4">
+                                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">12</span>
+                                            </td>
+                                           
+                                            <td class="py-4 px-4">
+                                                <div class="flex items-center space-x-2">
+                                                    <button class="p-1 rounded hover:bg-gray-100 text-gray-600 hover:text-primary">
+                                                        <div class="w-4 h-4 flex items-center justify-center">
+                                                            <i class="ri-edit-line"></i>
+                                                        </div>
+                                                    </button>
+                                                    <button class="p-1 rounded hover:bg-gray-100 text-gray-600 hover:text-red-600">
+                                                        <div class="w-4 h-4 flex items-center justify-center">
+                                                            <i class="ri-delete-bin-line"></i>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
+                                <div class="flex items-center space-x-2">
+                                    <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 text-sm">Trước</button>
+                                    <button class="px-3 py-1 bg-primary text-white rounded text-sm">1</button>
+                                    <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 text-sm">Sau</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Application Management Section -->
+                <div id="appSection" class="space-y-6 hidden">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">Ứng dụng</h1>
+                        </div>
+                        <button id="addAppBtn" class="bg-primary text-white px-4 py-2 rounded-button hover:bg-blue-700 transition-colors flex items-center space-x-2 !rounded-button whitespace-nowrap">
+                            <div class="w-4 h-4 flex items-center justify-center">
+                                <i class="ri-add-line"></i>
+                            </div>
+                            <span>Thêm mới</span>
+                        </button>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                        <div class="flex flex-wrap items-center gap-4">
+                            <div class="flex items-center space-x-2">
+                                <label class="text-sm font-medium text-gray-700">Khối:</label>
+                                <div class="relative">
+                                    <button class="flex items-center space-x-2 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
+                                        <span>Tất cả</span>
+                                        <div class="w-4 h-4 flex items-center justify-center">
+                                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex-1 max-w-sm">
+                                <div class="relative">
+                                    <input type="text" placeholder="Tìm kiếm..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm">
+                                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 flex items-center justify-center">
+                                        <i class="ri-search-line text-gray-400 text-sm"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                        <div class="p-6">
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="border-b border-gray-200">
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-900">
+                                                <input type="checkbox" class="rounded border-gray-300">
+                                            </th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-900">Tên ứng dụng</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-900">Khối</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-900">Mô tả</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-900">Link</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-900">Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                            <td class="py-4 px-4">
+                                                <input type="checkbox" class="rounded border-gray-300">
+                                            </td>
+                                            <td class="py-4 px-4">
+                                                <div class="flex items-center space-x-3">
+                                                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                                        <i class="ri-mail-line text-blue-600"></i>
+                                                    </div>
+                                                    <div>
+                                                        <div class="font-medium text-gray-900">Base</div>
+                                                        <div class="text-sm text-gray-500">v2.1.0</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-4 px-4">
+                                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">Khối văn phòng</span>
+                                            </td>
+                                            <td class="py-4 px-4 text-gray-600">Corporate email management system</td>
+                                            <td class="py-4 px-4">
+                                                <a href="#" class="text-primary hover:underline text-sm">mail.company.com</a>
+                                            </td>
+                                            <td class="py-4 px-4">
+                                                <div class="flex items-center space-x-2">
+                                                    <button class="p-1 rounded hover:bg-gray-100 text-gray-600 hover:text-primary">
+                                                        <div class="w-4 h-4 flex items-center justify-center">
+                                                            <i class="ri-edit-line"></i>
+                                                        </div>
+                                                    </button>
+                                                    <button class="p-1 rounded hover:bg-gray-100 text-gray-600 hover:text-red-600">
+                                                        <div class="w-4 h-4 flex items-center justify-center">
+                                                            <i class="ri-delete-bin-line"></i>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
+                                <div class="flex items-center space-x-2">
+                                    <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 text-sm">Trước</button>
+                                    <button class="px-3 py-1 bg-primary text-white rounded text-sm">1</button>
+                                    <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 text-sm">Sau</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Category Form Modal -->
+    <div id="categoryModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+            <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                <h3 id="categoryModalTitle" class="text-lg font-semibold text-gray-900">Add New Category</h3>
+                <button id="closeCategoryModal" class="p-1 rounded hover:bg-gray-100">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-close-line text-gray-400"></i>
+                    </div>
+                </button>
+            </div>
+            
+            <form class="p-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Category Name</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter category name">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter category description"></textarea>
+                </div>
+                
+                <div class="flex items-center justify-end space-x-3 pt-4">
+                    <button type="button" id="cancelCategoryBtn" class="px-4 py-2 border border-gray-300 rounded-button hover:bg-gray-50 transition-colors !rounded-button whitespace-nowrap">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-primary text-white rounded-button hover:bg-blue-700 transition-colors !rounded-button whitespace-nowrap">Save Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Form Modal -->
+    <div id="appModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4">
+            <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                <h3 id="appModalTitle" class="text-lg font-semibold text-gray-900">Add New Application</h3>
+                <button id="closeAppModal" class="p-1 rounded hover:bg-gray-100">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-close-line text-gray-400"></i>
+                    </div>
+                </button>
+            </div>
+            
+            <form class="p-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Application Name</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter application name">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                    <div class="relative">
+                        <button type="button" class="w-full flex items-center justify-between px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-left">
+                            <span>Select category</span>
+                            <div class="w-4 h-4 flex items-center justify-center">
+                                <i class="ri-arrow-down-s-line text-gray-400"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter application description"></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Access URL</label>
+                    <input type="url" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="https://example.com">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Icon</label>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <i class="ri-image-line text-gray-400"></i>
+                        </div>
+                        <button type="button" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">Upload Icon</button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-end space-x-3 pt-4">
+                    <button type="button" id="cancelAppBtn" class="px-4 py-2 border border-gray-300 rounded-button hover:bg-gray-50 transition-colors !rounded-button whitespace-nowrap">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-primary text-white rounded-button hover:bg-blue-700 transition-colors !rounded-button whitespace-nowrap">Save Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../Js/admin-home.js"></script>
+</body>
+</html>
