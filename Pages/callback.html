@@ -7,30 +7,49 @@
 <body>
   <p>Đang xử lý đăng nhập...</p>
   <script>
-    const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
-    const accessToken = params.get("access_token");
 
-    if (!accessToken) {
-      document.body.innerHTML = "<p>Lỗi đăng nhập!</p>";
-    } else {
-      localStorage.setItem("access_token", accessToken);
+  // Hỗ trợ lấy access_token và id_token từ fragment (cả khi có dấu # hoặc &)
+  function parseHashParams() {
+    let hash = window.location.hash;
+    console.log('window.location.hash:', hash);
+    if (hash.startsWith('#')) hash = hash.substring(1);
+    if (hash.startsWith('?')) hash = hash.substring(1);
+    // Đảm bảo thay mọi dấu # thành & (nếu có)
+    hash = hash.replace(/#/g, '&');
+    console.log('Hash after cleanup:', hash);
+    return new URLSearchParams(hash);
+  }
+  const params = parseHashParams();
+  const accessToken = params.get("access_token");
+  const idToken = params.get("id_token");
+  console.log('access_token:', accessToken);
+  console.log('id_token:', idToken);
 
-      // Gọi Microsoft Graph API để lấy thông tin người dùng
-      fetch("https://graph.microsoft.com/v1.0/me", {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
+  if (!accessToken || !idToken) {
+    document.body.innerHTML = `<p>Lỗi đăng nhập!<br>access_token: ${accessToken}<br>id_token: ${idToken}</p>`;
+    console.error('Lỗi đăng nhập! access_token:', accessToken, 'id_token:', idToken);
+    // Log toàn bộ fragment để debug
+    console.error('Full hash fragment:', window.location.hash);
+  } else {
+    localStorage.setItem("access_token", accessToken);
+    localStorage.setItem("id_token", idToken); // 🔐 Lưu id_token lại để chuyển sang app con
+    // Gọi Microsoft Graph API
+    fetch("https://graph.microsoft.com/v1.0/me", {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        window.location.href = "./home.html";
       })
-        .then((res) => res.json())
-        .then((data) => {
-          localStorage.setItem("user", JSON.stringify(data));
-          window.location.href = "./home.html";
-        })
-        .catch((err) => {
-          document.body.innerHTML = "<p>Lỗi khi lấy thông tin người dùng!</p>";
-        });
-    }
-  </script>
+      .catch((err) => {
+        document.body.innerHTML = "<p>Lỗi khi lấy thông tin người dùng!</p>";
+        console.error('Lỗi khi lấy thông tin người dùng:', err);
+      });
+  }
+</script>
+
 </body>
 </html>
