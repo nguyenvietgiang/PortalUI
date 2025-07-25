@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Traphaco Portal</title>
-    <link rel="icon" type="image/x-icon" href="../resources/favicon.jpg">
+    <link rel="icon" type="image/x-icon" href="../resources/favicon.jpg" />
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>
       tailwind.config = {
@@ -60,19 +60,35 @@
         <div class="flex items-center space-x-6">
           <div class="relative user-menu">
             <div class="flex items-center space-x-3">
-              <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
-                <img id="userAvatar" src="https://images.icon-icons.com/1378/PNG/512/avatardefault_92824.png" class="object-cover w-full h-full" />
+              <div
+                class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center"
+              >
+                <img
+                  id="userAvatar"
+                  src="https://images.icon-icons.com/1378/PNG/512/avatardefault_92824.png"
+                  class="object-cover w-full h-full"
+                />
               </div>
               <div class="flex items-center">
                 <span id="userName" class="font-medium text-gray-700">...</span>
-                <button id="userMenuToggle" type="button" class="w-5 h-5 flex items-center justify-center ml-1 focus:outline-none">
+                <button
+                  id="userMenuToggle"
+                  type="button"
+                  class="w-5 h-5 flex items-center justify-center ml-1 focus:outline-none"
+                >
                   <i class="ri-arrow-down-s-line"></i>
                 </button>
               </div>
             </div>
-            <div id="userDropdown" class="user-dropdown bg-white shadow-lg rounded mt-2 py-2 border border-gray-100 hidden absolute right-0 min-w-[180px] z-50">
+            <div
+              id="userDropdown"
+              class="user-dropdown bg-white shadow-lg rounded mt-2 py-2 border border-gray-100 hidden absolute right-0 min-w-[180px] z-50"
+            >
               <div class="border-t border-gray-100 my-1"></div>
-              <button id="logoutBtn" class="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-50 bg-transparent border-0 text-left cursor-pointer">
+              <button
+                id="logoutBtn"
+                class="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-50 bg-transparent border-0 text-left cursor-pointer"
+              >
                 <div class="w-5 h-5 flex items-center justify-center mr-3">
                   <i class="ri-logout-box-line"></i>
                 </div>
@@ -86,30 +102,50 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-6 pt-28 pb-16">
-
       <div class="mb-8">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+        >
           <div>
             <h2 class="text-2xl font-semibold text-gray-800">
               Cổng truy cập ứng dụng nội bộ Traphaco Portal
             </h2>
             <p class="text-gray-600 mt-1">
-              <span id="currentDate"></span> | Xin chào, <span id="userNameInline">...</span>
+              <span id="currentDate"></span> | Xin chào,
+              <span id="userNameInline">...</span>
             </p>
           </div>
-          <form class="flex items-center w-full md:w-auto gap-2" onsubmit="return false;">
+          <form
+            class="flex items-center w-full md:w-auto gap-2"
+            onsubmit="return false;"
+          >
             <div class="relative flex-1 min-w-0">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <div class="w-5 h-5 flex items-center justify-center text-gray-400">
+              <div
+                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+              >
+                <div
+                  class="w-5 h-5 flex items-center justify-center text-gray-400"
+                >
                   <i class="ri-search-line"></i>
                 </div>
               </div>
-              <input type="text" class="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-button pl-10 pr-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary w-full" placeholder="Tìm kiếm..." />
+              <input
+                type="text"
+                class="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-button pl-10 pr-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary w-full"
+                placeholder="Tìm kiếm..."
+              />
             </div>
-            <button type="submit" class="px-3 py-2 bg-primary text-white rounded-button text-sm flex items-center hover:bg-primary/90 transition">
+            <button
+              type="submit"
+              class="px-3 py-2 bg-primary text-white rounded-button text-sm flex items-center hover:bg-primary/90 transition"
+            >
               <i class="ri-search-2-line mr-1"></i>
             </button>
-            <button id="toggleViewBtn" type="button" class="px-3 py-2 bg-gray-100 border border-gray-200 rounded-button text-sm text-gray-700 hover:bg-primary hover:text-white transition flex items-center">
+            <button
+              id="toggleViewBtn"
+              type="button"
+              class="px-3 py-2 bg-gray-100 border border-gray-200 rounded-button text-sm text-gray-700 hover:bg-primary hover:text-white transition flex items-center"
+            >
               <i class="ri-layout-grid-line mr-1"></i>
               <span>Chuyển dạng xem</span>
             </button>
@@ -118,63 +154,105 @@
       </div>
 
       <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
-
         <!-- Ứng dụng khối văn phòng -->
         <div class="mb-8">
-          <h4 class="text-base font-semibold text-gray-700 mb-3">Ứng dụng khối văn phòng</h4>
-          <div id="office-apps" class="app-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <h4 class="text-base font-semibold text-gray-700 mb-3">
+            Ứng dụng khối văn phòng
+          </h4>
+          <div
+            id="office-apps"
+            class="app-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             <!-- HRM Hệ thống -->
-            <div class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30">
+            <div
+              class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30"
+            >
               <div class="flex items-center mb-4">
-                <div class="w-14 h-14 rounded-lg bg-secondary/10 flex items-center justify-center mr-4">
-                  <div class="w-7 h-7 flex items-center justify-center text-secondary">
+                <div
+                  class="w-14 h-14 rounded-lg bg-secondary/10 flex items-center justify-center mr-4"
+                >
+                  <div
+                    class="w-7 h-7 flex items-center justify-center text-secondary"
+                  >
                     <i class="ri-team-line ri-lg"></i>
                   </div>
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-800">Hệ thống HRM</h4>
-                  <p class="text-sm text-gray-500">Quản lý nhân sự (Chấm công, nghỉ phép, lương thưởng, ...)</p>
+                  <p class="text-sm text-gray-500">
+                    Quản lý nhân sự (Chấm công, nghỉ phép, lương thưởng, ...)
+                  </p>
                 </div>
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-xs text-gray-500">Tất cả phòng ban</span>
-                <button class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button" onclick="window.location.href='https://hrm.traphaco.vn:8087/External/Challenge?scheme=Microsoft&returnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id%3Dtraphaco_portal%26redirect_uri%3Dhttps%253A%252F%252Fhrm.traphaco.vn%253A8081%252FPortal%252FExternalLoginRedirect%252FProvider-01%26response_type%3Dcode%26scope%3Dopenid%2520profile%2520offline_access%2520api%2520IdentityServerApi%26code_challenge%3DTLRCaq1SwjO64ePE6illKKMCnBFvP8XtihNLid-c6HA%26code_challenge_method%3DS256%26state%3DOpenIdConnect.AuthenticationProperties%253DVP8tc5YOzxg3RlheL0iGepiEYJCJVro2d2JvQTMqzpaWS0UQX5mHNyacnFbmjItASLGi3AAb-Z1RRKisTmHu5dsSfJW4-yWbo2DNYnWxKBMeaN6uLvGMBCnZH_I7cLPGraIz2bAy0h7z28XjL4iwHaJde3KgW6F7pmGM77HTydufytR1RvBq-0qo_SoNjDMc3pDfiKiAwzU2e3tZDzFZpde4c4Zso6LjFcashwCK5H3bVYf_H72rsIPawqD-f8lfOByaDrMK7V7-eCE8ceIX_FrcjI-fqD1XW8llyExZ7cVO7jxv4irjF8ZUSXQoIKgB%26response_mode%3Dform_post%26nonce%3D638890018356201423.MjQ1NWI4NzMtNDFiZC00YTViLWExNzQtMDY3YjY5Njg4MTcxYjNjMjlhMjYtMjEwNy00ODIzLTgwZTAtZmUzMDJlMzk1YjE2%26x-client-SKU%3DID_NET461%26x-client-ver%3D6.17.0.0'">Truy cập</button>
+                <button
+                  class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button"
+                  onclick="window.open('https://hrm.traphaco.vn:8087/External/Challenge?scheme=Microsoft&returnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id%3Dtraphaco_portal%26redirect_uri%3Dhttps%253A%252F%252Fhrm.traphaco.vn%253A8081%252FPortal%252FExternalLoginRedirect%252FProvider-01%26response_type%3Dcode%26scope%3Dopenid%2520profile%2520offline_access%2520api%2520IdentityServerApi%26code_challenge%3DTLRCaq1SwjO64ePE6illKKMCnBFvP8XtihNLid-c6HA%26code_challenge_method%3DS256%26state%3DOpenIdConnect.AuthenticationProperties%253DVP8tc5YOzxg3RlheL0iGepiEYJCJVro2d2JvQTMqzpaWS0UQX5mHNyacnFbmjItASLGi3AAb-Z1RRKisTmHu5dsSfJW4-yWbo2DNYnWxKBMeaN6uLvGMBCnZH_I7cLPGraIz2bAy0h7z28XjL4iwHaJde3KgW6F7pmGM77HTydufytR1RvBq-0qo_SoNjDMc3pDfiKiAwzU2e3tZDzFZpde4c4Zso6LjFcashwCK5H3bVYf_H72rsIPawqD-f8lfOByaDrMK7V7-eCE8ceIX_FrcjI-fqD1XW8llyExZ7cVO7jxv4irjF8ZUSXQoIKgB%26response_mode%3Dform_post%26nonce%3D638890018356201423.MjQ1NWI4NzMtNDFiZC00YTViLWExNzQtMDY3YjY5Njg4MTcxYjNjMjlhMjYtMjEwNy00ODIzLTgwZTAtZmUzMDJlMzk1YjE2%26x-client-SKU%3DID_NET461%26x-client-ver%3D6.17.0.0', '_blank')"
+                >
+                  Truy cập
+                </button>
               </div>
             </div>
             <!-- Laboratory Management Hệ thống -->
-            <div class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30">
+            <div
+              class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30"
+            >
               <div class="flex items-center mb-4">
-                <div class="w-14 h-14 rounded-lg bg-purple-100 flex items-center justify-center mr-4">
-                  <div class="w-7 h-7 flex items-center justify-center text-purple-600">
+                <div
+                  class="w-14 h-14 rounded-lg bg-purple-100 flex items-center justify-center mr-4"
+                >
+                  <div
+                    class="w-7 h-7 flex items-center justify-center text-purple-600"
+                  >
                     <i class="ri-flask-line ri-lg"></i>
                   </div>
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-800">Hệ thống Labo</h4>
-                  <p class="text-sm text-gray-500">Hệ thống quản lý dành cho Labo NC</p>
+                  <p class="text-sm text-gray-500">
+                    Hệ thống quản lý dành cho Labo NC
+                  </p>
                 </div>
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-xs text-gray-500">Labo NC</span>
-                <button class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button" onclick="window.location.href='https://labo.traphaco.vn:3314/Auth/LoginAction'">Truy cập</button>
+                <button
+                  class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button"
+                  onclick="window.open('https://labo.traphaco.vn:3314/Auth/LoginAction', '_blank')"
+                >
+                  Truy cập
+                </button>
               </div>
             </div>
             <!-- Quality Management Hệ thống -->
-            <div class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30">
+            <div
+              class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30"
+            >
               <div class="flex items-center mb-4">
-                <div class="w-14 h-14 rounded-lg bg-teal-100 flex items-center justify-center mr-4">
-                  <div class="w-7 h-7 flex items-center justify-center text-teal-600">
+                <div
+                  class="w-14 h-14 rounded-lg bg-teal-100 flex items-center justify-center mr-4"
+                >
+                  <div
+                    class="w-7 h-7 flex items-center justify-center text-teal-600"
+                  >
                     <i class="ri-shield-check-line ri-lg"></i>
                   </div>
                 </div>
                 <div>
-                  <h4 class="font-semibold text-gray-800">Lalalab</h4>
-                  <p class="text-sm text-gray-500">Quản lý chất lượng</p>
+                  <h4 class="font-semibold text-gray-800">Base</h4>
+                  <p class="text-sm text-gray-500">Quản lý văn phòng</p>
                 </div>
               </div>
               <div class="flex justify-between items-center">
-                <span class="text-xs text-gray-500">Phòng quản lý chất lượng</span>
-                <button class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button" type="button" onclick="event.stopPropagation(); window.location.href='http://localhost:1111/CRM'">Truy cập</button>
+                <span class="text-xs text-gray-500">Chung</span>
+                <button
+                  class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button"
+                  type="button"
+                  onclick="event.stopPropagation(); window.open('https://login.microsoftonline.com/common/oauth2/v2.0/authorize?response_type=code&client_id=ce82390e-dfd7-4589-be5f-1fb0805207ed&redirect_uri=https%3A%2F%2Fsso.base.vn%2Fms%2Fstep2&scope=User.Read&state=SFD5DNBM56YSWKTCTA4Y6526NTYKJRHM&none=123456', '_blank')"
+                >
+                  Truy cập
+                </button>
               </div>
             </div>
           </div>
@@ -182,42 +260,73 @@
 
         <!-- Ứng dụng khối kinh doanh -->
         <div>
-          <h4 class="text-base font-semibold text-gray-700 mb-3">Ứng dụng khối kinh doanh</h4>
-          <div id="business-apps" class="app-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <h4 class="text-base font-semibold text-gray-700 mb-3">
+            Ứng dụng khối kinh doanh
+          </h4>
+          <div
+            id="business-apps"
+            class="app-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             <!-- CRM Hệ thống -->
-            <div class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30">
+            <div
+              class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30"
+            >
               <div class="flex items-center mb-4">
-                <div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
-                  <div class="w-7 h-7 flex items-center justify-center text-primary">
+                <div
+                  class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mr-4"
+                >
+                  <div
+                    class="w-7 h-7 flex items-center justify-center text-primary"
+                  >
                     <i class="ri-customer-service-2-line ri-lg"></i>
                   </div>
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-800">CRM</h4>
-                  <p class="text-sm text-gray-500">Hệ thống quản lý quan hệ khách hàng</p>
+                  <p class="text-sm text-gray-500">
+                    Hệ thống quản lý quan hệ khách hàng
+                  </p>
                 </div>
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-xs text-gray-500">Phòng Kinh doanh</span>
-                <button class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button" type="button" onclick="event.stopPropagation(); window.location.href='http://localhost:1111/ERP'">Truy cập</button>
+                <button
+                  class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button"
+                  type="button"
+                  onclick="event.stopPropagation(); window.open('http://localhost:1111/ERP', '_blank')"
+                >
+                  Truy cập
+                </button>
               </div>
             </div>
             <!-- ERP Hệ thống -->
-            <div class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30">
+            <div
+              class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30"
+            >
               <div class="flex items-center mb-4">
-                <div class="w-14 h-14 rounded-lg bg-green-100 flex items-center justify-center mr-4">
-                  <div class="w-7 h-7 flex items-center justify-center text-green-600">
+                <div
+                  class="w-14 h-14 rounded-lg bg-green-100 flex items-center justify-center mr-4"
+                >
+                  <div
+                    class="w-7 h-7 flex items-center justify-center text-green-600"
+                  >
                     <i class="ri-building-line ri-lg"></i>
                   </div>
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-800">Hệ thống ERP</h4>
-                  <p class="text-sm text-gray-500">Lập kế hoạch nguồn lực doanh nghiệp</p>
+                  <p class="text-sm text-gray-500">
+                    Lập kế hoạch nguồn lực doanh nghiệp
+                  </p>
                 </div>
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-xs text-gray-500">Tất cả phòng ban</span>
-                <button class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button">Truy cập</button>
+                <button
+                  class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button"
+                >
+                  Truy cập
+                </button>
               </div>
             </div>
           </div>
@@ -227,8 +336,14 @@
 
     <!-- Footer -->
     <footer class="bg-gray-50 border-4 border-gray-200">
-      <div class="container mx-auto px-6 py-8 flex flex-col items-center justify-center">
-        <img src="https://cdn.haitrieu.com/wp-content/uploads/2023/06/Logo-Traphaco.png" alt="Logo" class="h-10 mb-4" />
+      <div
+        class="container mx-auto px-6 py-8 flex flex-col items-center justify-center"
+      >
+        <img
+          src="https://cdn.haitrieu.com/wp-content/uploads/2023/06/Logo-Traphaco.png"
+          alt="Logo"
+          class="h-10 mb-4"
+        />
         © Copyright Traphaco - All rights reserved.
       </div>
     </footer>
@@ -236,13 +351,12 @@
     <script src="../Js/home.js"></script>
     <script>
       // Kiểm tra token, nếu không có thì quay về trang login
-      (function() {
-        const token = localStorage.getItem('access_token');
+      (function () {
+        const token = localStorage.getItem("access_token");
         if (!token) {
-          window.location.href = '../index.html';
+          window.location.href = "../index.html";
         }
       })();
     </script>
   </body>
 </html>
-
