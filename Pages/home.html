@@ -88,6 +88,7 @@
               <button
                 id="logoutBtn"
                 class="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-50 bg-transparent border-0 text-left cursor-pointer"
+                onclick="logoutAndChooseAccount()"
               >
                 <div class="w-5 h-5 flex items-center justify-center mr-3">
                   <i class="ri-logout-box-line"></i>
@@ -267,38 +268,6 @@
             id="business-apps"
             class="app-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            <!-- CRM Hệ thống -->
-            <div
-              class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30"
-            >
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mr-4"
-                >
-                  <div
-                    class="w-7 h-7 flex items-center justify-center text-primary"
-                  >
-                    <i class="ri-customer-service-2-line ri-lg"></i>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="font-semibold text-gray-800">BI</h4>
-                  <p class="text-sm text-gray-500">
-                    BI thông minh
-                  </p>
-                </div>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-xs text-gray-500">Tất cả phòng ban</span>
-                <button
-                  class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button"
-                  type="button"
-                  onclick="event.stopPropagation(); window.open('https://login.microsoftonline.com/b64e7779-a39b-4812-b490-1d710747aac2/oauth2/authorize?client_id=e015e8be-882f-44ef-88fc-ddd6a2a7419a&redirect_uri=https%3A%2F%2Fbi.traphaco.vn%2FAccount%2Fsignin-aad&response_type=id_token&scope=openid%20profile&response_mode=form_post&nonce=638890509515412589.ZTI1M2QzYTMtZjI4NC00YjAyLWIyMTMtMDYxMTk3ZGIzZDJlN2ExNTA0YjQtNTRkZS00NzhjLWIzZDktMDZhNGQ1OTIxZDQ3&state=CfDJ8CisKeog3M5LiwY1HrZjsgQEiq2dxUDtvRjt9-A3xDbxUhLl4eW_3Z012r2cCGWt6SCxzJHygrp83Avu3uGCioFIkTWjjE1ooyXNKXvqcGH6mbIXYRiQuBMG7iSgLeimzdTEbUN6iR2GWwR77WJlmRwhGQg00T1WpbfXz-tAcS3LPLNzyUKFRTdRbgzhhGQLMvRxIitLDbiLXHoKjBWYvZ_Db2qXCoVFvwLlFJPO32HMhb4IpgNF7qSXnpmCaR3DSWEPSgr7KpOquNYJxtZNrxFBc6PhWruxOa64uitCYiFecuPLu3Ap3GPHNlUj-o51u0sE_0OvBTrhvT4LgRxRGW6-fQ-OSIxcwePKXV1A0Q8Y5xkXMTC-2Q08tihND3L2j0o6DRJ_Da2hikWzQo9n1MXAKnIWfeXWdjB4EMGeeqtI&x-client-SKU=ID_NETSTANDARD2_0&x-client-ver=6.10.0.0', '_blank')"
-                >
-                  Truy cập
-                </button>
-              </div>
-            </div>
             <!-- ERP Hệ thống -->
             <div
               class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30"
@@ -357,6 +326,14 @@
           window.location.href = "../index.html";
         }
       })();
+
+      // Đăng xuất và luôn yêu cầu chọn tài khoản khi đăng nhập lại
+      function logoutAndChooseAccount() {
+        localStorage.removeItem("access_token");
+        // Chuyển hướng về trang đăng nhập và luôn yêu cầu chọn tài khoản
+        // Nếu dùng Microsoft, thêm prompt=select_account vào URL nếu có SSO
+        window.location.href = "../index.html?prompt=select_account";
+      }
     </script>
   </body>
 </html>
