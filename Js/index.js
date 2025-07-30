@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tenantId = "b64e7779-a39b-4812-b490-1d710747aac2";
     //const redirectUri = window.location.origin + "/Pages/callback.html";
 
-    const redirectUri =
+   const redirectUri =
       "https://nguyenvietgiang.github.io/PortalUI/Pages/callback.html";
 
     // 🎯 Thêm scope để lấy id_token: 'openid profile email User.Read'

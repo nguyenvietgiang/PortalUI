@@ -300,6 +300,32 @@
 </button>
               </div>
             </div>
+            <!-- ERP Hệ thống -->
+            <div
+              class="card bg-white border border-gray-100 rounded-lg p-6 cursor-pointer hover:border-primary/30"
+            >
+              <div class="flex items-center mb-4">
+                <div
+                  class="w-14 h-14 rounded-lg bg-green-100 flex items-center justify-center mr-4"
+                >
+                  <div
+                    class="w-7 h-7 flex items-center justify-center text-green-600"
+                  >
+                    <i class="ri-building-line ri-lg"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-800">Bi thông minh</h4>
+                  <p class="text-sm text-gray-500">
+                    Hệ thống xây dựng báo cáo và phân tích dữ liệu
+                  </p>
+                </div>
+              </div>
+              <div class="flex justify-between items-center">
+              <span class="text-xs text-gray-500">Phòng công nghệ thông tin</span>
+                <button onclick="event.stopPropagation(); loginToIS4()">Truy cập</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -337,5 +363,46 @@
         window.location.href = "../index.html?prompt=select_account";
       }
     </script>
+    <script>
+      async function generatePKCEParams() {
+  const encoder = new TextEncoder();
+  const randomString = crypto.getRandomValues(new Uint8Array(32));
+  const codeVerifier = btoa(String.fromCharCode(...randomString))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+
+  const data = encoder.encode(codeVerifier);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(digest));
+  const codeChallenge = btoa(String.fromCharCode(...hashArray))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+
+  const state = crypto.randomUUID();
+
+  // Lưu để dùng sau ở bước xử lý callback
+  sessionStorage.setItem("pkce_code_verifier", codeVerifier);
+  sessionStorage.setItem("oauth_state", state);
+
+  return { codeChallenge, state };
+}
+async function loginToIS4() {
+  const { codeChallenge, state } = await generatePKCEParams();
+
+  const url = new URL("https://bi.traphaco.vn/connect/authorize");
+  url.searchParams.set("response_type", "code");
+  url.searchParams.set("client_id", "portal");
+  url.searchParams.set("scope", "openid profile portal");
+  url.searchParams.set("redirect_uri", "https://bi.traphaco.vn/auth/callback/IS4");
+  url.searchParams.set("code_challenge", codeChallenge);
+  url.searchParams.set("code_challenge_method", "S256");
+  url.searchParams.set("state", state);
+
+  window.open(url.toString(), "_blank");
+}
+    </script>
+
   </body>
 </html>
