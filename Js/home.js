@@ -65,8 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
         "https://login.microsoftonline.com/common/oauth2/v2.0/logout" +
         "?post_logout_redirect_uri=" +
         encodeURIComponent(
-          window.location.origin + "../index.html"
-          //window.location.origin + "/PortalUI/index.html"
+          //window.location.origin + "../index.html"
+          window.location.origin + "/PortalUI/index.html"
         );
 
       window.location.href = logoutUrl;
