@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   microsoftBtn.addEventListener("click", function () {
     const clientId = "79c312b7-adad-43a8-b457-22d47c4f1fb4";
     const tenantId = "b64e7779-a39b-4812-b490-1d710747aac2";
-    //const redirectUri = window.location.origin + "/Pages/callback.html";
+   // const redirectUri = window.location.origin + "/Pages/callback.html";
 
    const redirectUri =
       "https://nguyenvietgiang.github.io/PortalUI/Pages/callback.html";

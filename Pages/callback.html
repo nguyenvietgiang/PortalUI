@@ -40,6 +40,13 @@
       .then((res) => res.json())
       .then((data) => {
         localStorage.setItem("user", JSON.stringify(data));
+        // Luôn lưu key 'Department', nếu không có thì giá trị là null
+        if (data.displayName) {
+          var match = data.displayName.match(/\(([^)]+)\)/);
+          localStorage.setItem("Department", match && match[1] ? match[1] : null);
+        } else {
+          localStorage.setItem("Department", null);
+        }
         window.location.href = "./home.html";
       })
       .catch((err) => {
