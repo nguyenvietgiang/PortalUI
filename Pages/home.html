@@ -42,6 +42,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
     />
     <link rel="stylesheet" href="../Css/home.css" />
+    <link rel="stylesheet" href="../Css/chatbot.css" />
   </head>
   <body>
     <!-- Header -->
@@ -290,14 +291,16 @@
                 </div>
               </div>
               <div class="flex justify-between items-center">
-                <span class="text-xs text-gray-500">Phòng quản lý chất lượng</span>
+                <span class="text-xs text-gray-500"
+                  >Phòng quản lý chất lượng</span
+                >
                 <button
-  class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button"
-  type="button"
-  onclick="event.stopPropagation(); window.open('https://lalalab.traphaco.vn:3313/oauth2/authorization/azure', '_blank')"
->
-  Truy cập
-</button>
+                  class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button"
+                  type="button"
+                  onclick="event.stopPropagation(); window.open('https://lalalab.traphaco.vn:3313/oauth2/authorization/azure', '_blank')"
+                >
+                  Truy cập
+                </button>
               </div>
             </div>
             <!-- ERP Hệ thống -->
@@ -322,16 +325,71 @@
                 </div>
               </div>
               <div class="flex justify-between items-center">
-              <span class="text-xs text-gray-500">Phòng công nghệ thông tin</span>
+                <span class="text-xs text-gray-500"
+                  >Phòng công nghệ thông tin</span
+                >
                 <button
-  class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button"
-  type="button"
-  onclick="event.stopPropagation(); window.open('https://bi.traphaco.vn/Account/LoginChallenge?provider=aad&returnUrl=https://bi.traphaco.vn/auth/callback', '_blank')"
->
-  Truy cập
-</button>
+                  class="text-primary text-sm font-medium hover:text-primary/80 whitespace-nowrap !rounded-button"
+                  type="button"
+                  onclick="event.stopPropagation(); window.open('https://bi.traphaco.vn/Account/LoginChallenge?provider=aad&returnUrl=https://bi.traphaco.vn/auth/callback', '_blank')"
+                >
+                  Truy cập
+                </button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Window -->
+      <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+          <div class="bot-info">
+            <div class="bot-avatar">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7A1,1 0 0,1 12,8H11V10A1,1 0 0,1 10,11H9A1,1 0 0,1 8,10V9A1,1 0 0,1 9,8H10V7.73C9.4,7.39 9,6.74 9,6A2,2 0 0,1 11,4V2A2,2 0 0,1 12,2M21,9V10A1,1 0 0,1 20,11H19A1,1 0 0,1 18,10V9A1,1 0 0,1 19,8H20A1,1 0 0,1 21,9M16,11A1,1 0 0,1 17,12V13A1,1 0 0,1 16,14H15A1,1 0 0,1 14,13V12A1,1 0 0,1 15,11H16M10,15A1,1 0 0,1 11,16V17A1,1 0 0,1 10,18H9A1,1 0 0,1 8,17V16A1,1 0 0,1 9,15H10M7,12A2,2 0 0,1 9,14A2,2 0 0,1 7,16A2,2 0 0,1 5,14A2,2 0 0,1 7,12Z"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="bot-name">Trợ lý Traphaco</div>
+            </div>
+          </div>
+          <button class="close-btn" id="closeChat">&times;</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+          <div class="message bot-message">
+            <div class="message-avatar">🤖</div>
+            <div class="message-content">
+              Xin chào! Tôi là AI Assistant. Tôi có thể giúp gì cho bạn hôm nay?
+            </div>
+          </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+          <div class="message-avatar">🤖</div>
+          <div class="typing-dots">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+        </div>
+
+        <div class="chat-input-container">
+          <div class="chat-input-group">
+            <input
+              type="text"
+              class="chat-input"
+              id="chatInput"
+              placeholder="Nhập tin nhắn..."
+            />
+            <button class="send-btn" id="sendBtn">
+              <svg viewBox="0 0 24 24">
+                <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -369,5 +427,6 @@
         window.location.href = "../index.html?prompt=select_account";
       }
     </script>
+    <script src="../Js/chatbot.js"></script>
   </body>
 </html>
