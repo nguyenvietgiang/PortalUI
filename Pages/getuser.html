@@ -1,98 +1,307 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <title>Tìm kiếm nhân viên</title>
-  <style>
-    #results div {
-      padding: 6px;
-      border-bottom: 1px solid #ddd;
-      cursor: pointer;
-    }
-    #results div:hover {
-      background-color: #f0f0f0;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <title>Tìm kiếm nhân viên</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        #searchInput {
+            width: 300px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        #results {
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        #results div {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        #results div:hover {
+            background-color: #f0f0f0;
+        }
+        
+        #results div:last-child {
+            border-bottom: none;
+        }
+        
+        .user-info {
+            font-weight: bold;
+        }
+        
+        .user-email {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .user-department {
+            color: #007acc;
+            font-size: 11px;
+            font-style: italic;
+        }
+        
+        .selected {
+            background-color: #d0f0d0 !important;
+        }
+        
+        #okButton {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        #okButton:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        #selectedOutput {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+        .search-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-  <h2>Tìm kiếm nhân viên theo tên/email</h2>
-  <input type="text" id="searchInput" placeholder="Gõ ít nhất 3 ký tự..." />
-  <div id="results"></div>
-  <button id="okButton" disabled>OK</button>
+    <h2>Tìm kiếm nhân viên theo tên/email/phòng ban</h2>
+    <input type="text" id="searchInput" placeholder="Gõ ít nhất 3 ký tự..." />
+    <div class="search-hint">Có thể tìm theo: tên, email, mã phòng ban (ví dụ: P.MKT, TP.CNTT)</div>
+    <div id="results"></div>
+    <button id="okButton" disabled>OK</button>
+    <p id="selectedOutput"></p>
 
-  <p id="selectedOutput"></p>
+    <script>
+        const accessToken = localStorage.getItem("access_token");
+        let selectedEmail = null;
+        let allUsers = []; // Cache để lưu tất cả users
 
-  <script>
-    const accessToken = localStorage.getItem("access_token");
-    let selectedEmail = null;
+        const searchInput = document.getElementById("searchInput");
+        const resultsDiv = document.getElementById("results");
+        const okButton = document.getElementById("okButton");
+        const output = document.getElementById("selectedOutput");
 
-    const searchInput = document.getElementById("searchInput");
-    const resultsDiv = document.getElementById("results");
-    const okButton = document.getElementById("okButton");
-    const output = document.getElementById("selectedOutput");
-
-    // Xử lý sự kiện khi gõ tìm kiếm
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.trim();
-      if (query.length < 3) {
-        resultsDiv.innerHTML = "";
-        return;
-      }
-
-      // Gọi Graph API tìm user theo displayName hoặc email
-      fetch(`https://graph.microsoft.com/v1.0/users?$filter=startswith(displayName,'${query}') or startswith(mail,'${query}')&$top=10`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-        .then(res => res.json())
-        .then(data => {
-          resultsDiv.innerHTML = "";
-          if (data.value && data.value.length > 0) {
-            data.value.forEach(user => {
-              const div = document.createElement("div");
-              div.textContent = `${user.displayName} (${user.mail || user.userPrincipalName})`;
-              div.onclick = () => {
-                selectedEmail = user.mail || user.userPrincipalName;
-                okButton.disabled = false;
-                Array.from(resultsDiv.children).forEach(c => c.style.backgroundColor = "");
-                div.style.backgroundColor = "#d0f0d0";
-              };
-              resultsDiv.appendChild(div);
-            });
-          } else {
-            resultsDiv.innerHTML = "<p>Không tìm thấy kết quả</p>";
-          }
-        })
-        .catch(err => {
-          console.error("Lỗi khi tìm kiếm user:", err);
-          resultsDiv.innerHTML = "<p>Lỗi khi gọi API</p>";
-        });
-    });
-
-    // Xử lý khi ấn OK
-    okButton.addEventListener("click", () => {
-      if (selectedEmail) {
-        output.textContent = `Email đã chọn: ${selectedEmail}`;
-      }
-    });
-  </script>
-  <script>
-      // Kiểm tra token, nếu không có thì quay về trang login
-      (function () {
-        const token = localStorage.getItem("access_token");
-        if (!token) {
-          window.location.href = "../index.html";
+        // Hàm extract mã phòng ban từ displayName
+        function extractDepartment(displayName) {
+            // Tìm tất cả nội dung trong dấu ngoặc đơn
+            const matches = displayName.match(/\(([^)]+)\)/g);
+            if (matches) {
+                // Lấy match cuối cùng và loại bỏ dấu ngoặc
+                const lastMatch = matches[matches.length - 1];
+                return lastMatch.replace(/[()]/g, '');
+            }
+            return "";
         }
-      })();
 
-      // Đăng xuất và luôn yêu cầu chọn tài khoản khi đăng nhập lại
-      function logoutAndChooseAccount() {
-        localStorage.removeItem("access_token");
-        // Chuyển hướng về trang đăng nhập và luôn yêu cầu chọn tài khoản
-        // Nếu dùng Microsoft, thêm prompt=select_account vào URL nếu có SSO
-        window.location.href = "../index.html?prompt=select_account";
-      }
+        // Hàm tìm kiếm local trong cache
+        function searchInCache(query) {
+            const normalizedQuery = query.toLowerCase().trim();
+            console.log(`🔎 Tìm kiếm với query: "${normalizedQuery}"`);
+            
+            const results = allUsers.filter(user => {
+                const displayName = (user.displayName || "").toLowerCase();
+                const email = (user.mail || user.userPrincipalName || "").toLowerCase();
+                const department = extractDepartment(user.displayName || "").toLowerCase();
+                
+                const matchName = displayName.includes(normalizedQuery);
+                const matchEmail = email.includes(normalizedQuery);
+                const matchDept = department.includes(normalizedQuery);
+                
+                // Log chi tiết cho query P.CNTT
+                if (normalizedQuery === "p.cntt" && (matchName || matchEmail || matchDept)) {
+                    console.log(`✅ Tìm thấy: "${user.displayName}"`);
+                    console.log(`   - Display: "${displayName}"`);
+                    console.log(`   - Department: "${department}"`);
+                    console.log(`   - Match: name=${matchName}, email=${matchEmail}, dept=${matchDept}`);
+                }
+                
+                return matchName || matchEmail || matchDept;
+            });
+            
+            console.log(`📊 Tổng kết quả: ${results.length}`);
+            return results;
+        }
+
+        // Hàm hiển thị kết quả
+        function displayResults(users) {
+            resultsDiv.innerHTML = "";
+            
+            if (users.length > 0) {
+                users.forEach(user => {
+                    const div = document.createElement("div");
+                    const department = extractDepartment(user.displayName || "");
+                    
+                    div.innerHTML = `
+                        <div class="user-info">${user.displayName}</div>
+                        <div class="user-email">${user.mail || user.userPrincipalName}</div>
+                        ${department ? `<div class="user-department">Phòng: ${department}</div>` : ''}
+                    `;
+                    
+                    div.onclick = () => {
+                        selectedEmail = user.mail || user.userPrincipalName;
+                        okButton.disabled = false;
+                        
+                        // Remove selection từ tất cả items
+                        Array.from(resultsDiv.children).forEach(c => c.classList.remove('selected'));
+                        div.classList.add('selected');
+                    };
+                    
+                    resultsDiv.appendChild(div);
+                });
+            } else {
+                resultsDiv.innerHTML = "<p style='padding: 8px; color: #666;'>Không tìm thấy kết quả</p>";
+            }
+        }
+
+        // Load tất cả users vào cache (chỉ chạy 1 lần)
+        async function loadAllUsers() {
+            try {
+                let allFetchedUsers = [];
+                let nextLink = "https://graph.microsoft.com/v1.0/users?$select=displayName,mail,userPrincipalName&$top=999";
+                
+                while (nextLink) {
+                    const response = await fetch(nextLink, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.value) {
+                        allFetchedUsers = allFetchedUsers.concat(data.value);
+                    }
+                    
+                    nextLink = data['@odata.nextLink'] || null;
+                }
+                
+                allUsers = allFetchedUsers;
+                console.log(`Đã load ${allUsers.length} users vào cache`);
+            } catch (error) {
+                console.error("Lỗi khi load users:", error);
+            }
+        }
+
+        // Xử lý sự kiện khi gõ tìm kiếm
+        let searchTimeout;
+        searchInput.addEventListener("input", () => {
+            const query = searchInput.value.trim();
+            
+            // Clear timeout cũ
+            clearTimeout(searchTimeout);
+            
+            if (query.length < 3) {
+                resultsDiv.innerHTML = "";
+                return;
+            }
+
+            // Debounce search
+            searchTimeout = setTimeout(() => {
+                console.log(`🔍 Tìm kiếm: "${query}"`);
+                console.log(`📊 Số users trong cache: ${allUsers.length}`);
+                
+                if (allUsers.length > 0) {
+                    // Tìm kiếm trong cache
+                    const results = searchInCache(query);
+                    console.log(`📝 Kết quả tìm được: ${results.length}`);
+                    results.forEach((user, index) => {
+                        if (index < 3) { // Log 3 kết quả đầu
+                            console.log(`  ${index + 1}. ${user.displayName} - ${user.mail || user.userPrincipalName}`);
+                        }
+                    });
+                    displayResults(results);
+                } else {
+                    console.log("⚠️ Cache chưa sẵn sàng, dùng API fallback");
+                    // Fallback về API gốc nếu cache chưa load
+                    searchViaAPI(query);
+                }
+            }, 300);
+        });
+
+        // Fallback search via API - sử dụng contains thay vì startswith
+        function searchViaAPI(query) {
+            // Graph API không có contains trực tiếp, nên ta dùng $search
+            // Hoặc load nhiều dữ liệu hơn và filter phía client
+            fetch(`https://graph.microsoft.com/v1.0/users?$select=displayName,mail,userPrincipalName&$top=999`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.value) {
+                    // Filter phía client
+                    const filtered = data.value.filter(user => {
+                        const displayName = (user.displayName || "").toLowerCase();
+                        const email = (user.mail || user.userPrincipalName || "").toLowerCase();
+                        const normalizedQuery = query.toLowerCase().trim();
+                        
+                        return displayName.includes(normalizedQuery) || email.includes(normalizedQuery);
+                    });
+                    
+                    displayResults(filtered.slice(0, 20)); // Chỉ hiển thị 20 kết quả đầu
+                } else {
+                    resultsDiv.innerHTML = "<p style='padding: 8px; color: #666;'>Không tìm thấy kết quả</p>";
+                }
+            })
+            .catch(err => {
+                console.error("Lỗi khi tìm kiếm user:", err);
+                resultsDiv.innerHTML = "<p style='padding: 8px; color: #f44336;'>Lỗi khi gọi API</p>";
+            });
+        }
+
+        // Xử lý khi ấn OK
+        okButton.addEventListener("click", () => {
+            if (selectedEmail) {
+                output.textContent = `Email đã chọn: ${selectedEmail}`;
+            }
+        });
+
+        // Load users vào cache khi trang được tải
+        window.addEventListener('load', () => {
+            loadAllUsers();
+        });
+    </script>
+
+    <script>
+        // Kiểm tra token, nếu không có thì quay về trang login
+        (function () {
+            const token = localStorage.getItem("access_token");
+            if (!token) {
+                window.location.href = "../index.html";
+            }
+        })();
+
+        // Đăng xuất và luôn yêu cầu chọn tài khoản khi đăng nhập lại
+        function logoutAndChooseAccount() {
+            localStorage.removeItem("access_token");
+            window.location.href = "../index.html?prompt=select_account";
+        }
     </script>
 </body>
 </html>
